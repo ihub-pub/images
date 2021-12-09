@@ -17,7 +17,7 @@ jobs:
       - name: Extract Version
         id: version_step
         run: |
-          echo "##[set-output name=version;]NACOS_VERSION=${GITHUB_REF#$"refs/tags/v"}"
+          echo "##[set-output name=version;]NACOS_VERSION_1=${GITHUB_REF#$"refs/tags/v"}"
 
       - name: Check out the repo
         uses: actions/checkout@v2
