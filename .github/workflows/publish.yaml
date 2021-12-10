@@ -12,12 +12,17 @@ on:
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        image_name: [nacos]
+        nacos_version: [2.0.3]
     steps:
       - name: Extract Version
         id: version_step
         run: |
-          echo "##[set-output name=version;]NACOS_VERSION_1=${GITHUB_REF#$"refs/tags/v"}"
+          echo "##[set-output name=version;]NACOS_VERSION_1=${{ matrix.nacos_version }}"
 
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -40,13 +45,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ihubpub/nacos
+          images: ihubpub/${{ matrix.image_name }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2.3.0
         with:
-          context: nacos
-          file: nacos/Dockerfile
+          context: ${{ matrix.image_name }}
+          file: ${{ matrix.image_name }}/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
