@@ -16,14 +16,17 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        image_name: [nacos]
+        image_name: [nacos,sentinel]
         nacos_version: [2.0.3]
+        sentinel_version: [1.8.2]
     steps:
       - name: Extract Version
         id: version_step
         run: |
           if [ ${{ matrix.image_name == 'nacos' }} == true ];then
             echo "##[set-output name=version;]${{ matrix.nacos_version }}"
+          elif [ ${{ matrix.image_name == 'sentinel' }} == true ];then
+            echo "##[set-output name=version;]${{ matrix.sentinel_version }}"
           else
             echo "##[set-output name=version;]${GITHUB_REF#$"refs/tags/v"}"
           fi

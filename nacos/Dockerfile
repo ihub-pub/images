@@ -1,5 +1,5 @@
 FROM centos:7.5.1804
-MAINTAINER pader "huangmnlove@163.com"
+MAINTAINER pader "henry.box@outlook.com"
 
 # set environment
 ENV MODE="cluster" \
