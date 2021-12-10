@@ -22,7 +22,7 @@ jobs:
       - name: Extract Version
         id: version_step
         run: |
-          echo "##[set-output name=version;]NACOS_VERSION=${{ matrix.nacos_version }}"
+          echo "##[set-output name=version;]NACOS_VERSION=${{ matrix.${{ matrix.image_name }}_version }}"
 
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -49,7 +49,7 @@ jobs:
           flavor: |
             latest=auto
             prefix=
-            suffix=${{ matrix.image_name }}-${{ matrix.nacos_version }}
+            suffix=-${{ matrix.image_name }}-${{steps.version_step.outputs.version}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2.3.0
