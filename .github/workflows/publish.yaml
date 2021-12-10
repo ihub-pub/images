@@ -22,8 +22,10 @@ jobs:
       - name: Extract Version
         id: version_step
         run: |
-          if [ ${{ matrix.image_name == 'nacos' }} == 'true' ]
+          if [ ${{ matrix.image_name == 'nacos' }} == true ];then
             echo "##[set-output name=version;]${{ matrix.nacos_version }}"
+          else
+            echo "##[set-output name=version;]${GITHUB_REF#$"refs/tags/v"}"
           fi
 
       - name: Check out the repo
