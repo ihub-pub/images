@@ -20,7 +20,7 @@ ENV MODE="cluster" \
     TOMCAT_ACCESSLOG_ENABLED="false" \
     TIME_ZONE="Asia/Shanghai"
 
-ARG NACOS_VERSION=2.0.3
+ARG VERSION=0.0.0
 ARG HOT_FIX_FLAG=""
 
 WORKDIR $BASE_DIR
@@ -28,9 +28,9 @@ WORKDIR $BASE_DIR
 RUN set -x \
     && yum update -y \
     && yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget iputils nc  vim libcurl
-RUN wget  https://github.com/alibaba/nacos/releases/download/${NACOS_VERSION}${HOT_FIX_FLAG}/nacos-server-${NACOS_VERSION}.tar.gz -P /home
-RUN tar -xzvf /home/nacos-server-${NACOS_VERSION}.tar.gz -C /home \
-    && rm -rf /home/nacos-server-${NACOS_VERSION}.tar.gz /home/nacos/bin/* /home/nacos/conf/*.properties /home/nacos/conf/*.example /home/nacos/conf/nacos-mysql.sql
+RUN wget  https://github.com/alibaba/nacos/releases/download/${VERSION}${HOT_FIX_FLAG}/nacos-server-${VERSION}.tar.gz -P /home
+RUN tar -xzvf /home/nacos-server-${VERSION}.tar.gz -C /home \
+    && rm -rf /home/nacos-server-${VERSION}.tar.gz /home/nacos/bin/* /home/nacos/conf/*.properties /home/nacos/conf/*.example /home/nacos/conf/nacos-mysql.sql
 RUN yum autoremove -y wget \
     && ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo $TIME_ZONE > /etc/timezone \
     && yum clean all

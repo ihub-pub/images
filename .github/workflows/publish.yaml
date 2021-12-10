@@ -22,7 +22,9 @@ jobs:
       - name: Extract Version
         id: version_step
         run: |
-          echo "##[set-output name=version;]NACOS_VERSION=${{ matrix.${{ matrix.image_name }}_version }}"
+          if [ ${{ matrix.image_name == 'nacos' }} == 'true' ]
+            echo "##[set-output name=version;]${{ matrix.nacos_version }}"
+          fi
 
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -59,4 +61,4 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: ${{steps.version_step.outputs.version}}
+          build-args: VERSION=${{steps.version_step.outputs.version}}
