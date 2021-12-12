@@ -1,10 +1,7 @@
-FROM centos:7.5.1804
-MAINTAINER pader "henry.box@outlook.com"
+FROM openjdk:8u201-jdk-alpine3.9
 
 # set environment
 ENV BASE_DIR="/home/sentinel" \
-    JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk" \
-    JAVA="/usr/lib/jvm/java-1.8.0-openjdk/bin/java" \
     JVM_XMS="1g" \
     JVM_XMX="1g" \
     JVM_XMN="512m" \
@@ -13,22 +10,16 @@ ENV BASE_DIR="/home/sentinel" \
     TIME_ZONE="Asia/Shanghai"
 
 ARG VERSION=0.0.0
-ARG HOT_FIX_FLAG=""
+ARG PORT=8080
 
 WORKDIR $BASE_DIR
 
-RUN set -x \
-    && yum update -y \
-    && yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget iputils nc  vim libcurl
-RUN wget  https://github.com/alibaba/Sentinel/releases/download/${VERSION}${HOT_FIX_FLAG}/sentinel-dashboard-${VERSION}.jar -P $BASE_DIR
-RUN yum autoremove -y wget \
-    && ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo $TIME_ZONE > /etc/timezone \
-    && yum clean all
+RUN wget  https://github.com/alibaba/Sentinel/releases/download/${VERSION}/sentinel-dashboard-${VERSION}.jar -P $BASE_DIR
 
-EXPOSE 8080
+EXPOSE ${PORT}
 
 CMD java \
-    -Dserver.port=8080 \
-    -Dcsp.sentinel.dashboard.server=localhost:8080 \
+    -Dserver.port=${PORT} \
+    -Dcsp.sentinel.dashboard.server=localhost:${PORT} \
     -Dproject.name=sentinel-dashboard \
     -jar sentinel-dashboard-${VERSION}.jar

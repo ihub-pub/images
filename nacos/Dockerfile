@@ -1,5 +1,4 @@
 FROM centos:7.5.1804
-MAINTAINER pader "henry.box@outlook.com"
 
 # set environment
 ENV MODE="cluster" \
@@ -21,26 +20,21 @@ ENV MODE="cluster" \
     TIME_ZONE="Asia/Shanghai"
 
 ARG VERSION=0.0.0
-ARG HOT_FIX_FLAG=""
 
 WORKDIR $BASE_DIR
 
 RUN set -x \
     && yum update -y \
     && yum install -y java-1.8.0-openjdk java-1.8.0-openjdk-devel wget iputils nc  vim libcurl
-RUN wget  https://github.com/alibaba/nacos/releases/download/${VERSION}${HOT_FIX_FLAG}/nacos-server-${VERSION}.tar.gz -P /home
+RUN wget  https://github.com/alibaba/nacos/releases/download/${VERSION}/nacos-server-${VERSION}.tar.gz -P /home
 RUN tar -xzvf /home/nacos-server-${VERSION}.tar.gz -C /home \
     && rm -rf /home/nacos-server-${VERSION}.tar.gz /home/nacos/bin/* /home/nacos/conf/*.properties /home/nacos/conf/*.example /home/nacos/conf/nacos-mysql.sql
 RUN yum autoremove -y wget \
     && ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo $TIME_ZONE > /etc/timezone \
     && yum clean all
 
-
-
-
 ADD bin/docker-startup.sh bin/docker-startup.sh
 ADD conf/application.properties conf/application.properties
-
 
 # set startup log dir
 RUN mkdir -p logs \
