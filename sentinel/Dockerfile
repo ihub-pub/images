@@ -10,16 +10,17 @@ ENV BASE_DIR="/home/sentinel" \
     TIME_ZONE="Asia/Shanghai"
 
 ARG VERSION=0.0.0
-ARG PORT=8080
 
 WORKDIR $BASE_DIR
 
 RUN wget  https://github.com/alibaba/Sentinel/releases/download/${VERSION}/sentinel-dashboard-${VERSION}.jar -P $BASE_DIR
 
-EXPOSE ${PORT}
+ADD sentinel-dashboard-${VERSION}.jar sentinel-dashboard.jar
+
+EXPOSE 8080
 
 CMD java \
-    -Dserver.port=${PORT} \
-    -Dcsp.sentinel.dashboard.server=localhost:${PORT} \
+    -Dserver.port=8080 \
+    -Dcsp.sentinel.dashboard.server=localhost:8080 \
     -Dproject.name=sentinel-dashboard \
-    -jar sentinel-dashboard-${VERSION}.jar
+    -jar sentinel-dashboard.jar
