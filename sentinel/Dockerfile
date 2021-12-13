@@ -15,12 +15,6 @@ WORKDIR $BASE_DIR
 
 RUN wget  https://github.com/alibaba/Sentinel/releases/download/${VERSION}/sentinel-dashboard-${VERSION}.jar -P $BASE_DIR
 
-ADD sentinel-dashboard-${VERSION}.jar sentinel-dashboard.jar
-
 EXPOSE 8080
 
-CMD java \
-    -Dserver.port=8080 \
-    -Dcsp.sentinel.dashboard.server=localhost:8080 \
-    -Dproject.name=sentinel-dashboard \
-    -jar sentinel-dashboard.jar
+CMD [ "/bin/bash", "-c", "java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard*.jar" ]
