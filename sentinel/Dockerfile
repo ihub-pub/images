@@ -17,4 +17,8 @@ RUN wget  https://github.com/alibaba/Sentinel/releases/download/${VERSION}/senti
 
 EXPOSE 8080
 
-CMD [ "/bin/bash", "-c", "java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard*.jar" ]
+CMD java \
+    -Dserver.port=8080 \
+    -Dcsp.sentinel.dashboard.server=localhost:8080 \
+    -Dproject.name=sentinel-dashboard \
+    -jar sentinel-dashboard*.jar
