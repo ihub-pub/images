@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-	<a target="_blank" href="https://github.com/ihub-pub/images/actions/workflows/publish.yaml">
-		<img src="https://img.shields.io/github/workflow/status/ihub-pub/images/Publish%20Docker%20image?label=Build&logo=GitHub+Actions&logoColor=white" alt="Publish Docker"/>
+	<a target="_blank" href="https://github.com/ihub-pub/images/actions/workflows/publish.yml">
+		<img src="https://img.shields.io/github/actions/workflow/status/ihub-pub/images/publish.yml?branch=main&label=Build&logo=GitHub+Actions&logoColor=white" alt="Publish Docker"/>
 	</a>
 	<a target="_blank" href="https://github.com/ihub-pub">
 		<img src="https://img.shields.io/badge/GitHub-181717.svg?style=flat&logo=GitHub" alt="IHubPub"/>
