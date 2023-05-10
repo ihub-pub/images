@@ -1,5 +1,5 @@
 <p align="center">
-  <a target="_blank" href="https://hub.docker.com/u/ihubpub"><img src="https://cdn.jsdelivr.net/gh/ihub-pub/ihub-pub.github.io/ihub_logo.svg" height="150" alt="IHub"></a>
+  <a target="_blank" href="https://hub.docker.com/u/ihubpub"><img src="https://doc.ihub.pub/ihub_logo.svg" height="150" alt="IHub"></a>
 </p>
 
 <p align="center">
