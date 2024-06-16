@@ -5,7 +5,11 @@
 
 version: 2
 updates:
-  - package-ecosystem: "docker" # See documentation for possible values
-    directory: "/one-api/" # Location of package manifests
+  - package-ecosystem: github-actions
+    directory: /
     schedule:
-      interval: "weekly"
+      interval: daily
+    assignees:
+      - "henry-hub"
+    allow:
+      - dependency-type: "production"
