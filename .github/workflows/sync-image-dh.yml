@@ -43,5 +43,5 @@ jobs:
 
     - name: Use Skopeo Tools Sync Image to Docker Hub
       run: |
-         skopeo copy docker://${{fromJson(steps.set_var.outputs.imageJson).registry}}/${{fromJson(steps.set_var.outputs.imageJson).namespace}}/${{fromJson(steps.set_var.outputs.imageJson).name}}:${{fromJson(steps.set_var.outputs.imageJson).version}} docker://ihub-pub/${{ matrix.image_name }}:${{fromJson(steps.set_var.outputs.imageJson).version}} |
-         skopeo copy docker://${{fromJson(steps.set_var.outputs.imageJson).registry}}/${{fromJson(steps.set_var.outputs.imageJson).namespace}}/${{fromJson(steps.set_var.outputs.imageJson).name}}:${{fromJson(steps.set_var.outputs.imageJson).version}} docker://ihub-pub/${{ matrix.image_name }}:latest
+         skopeo copy docker://${{fromJson(steps.set_var.outputs.imageJson).registry}}/${{fromJson(steps.set_var.outputs.imageJson).namespace}}/${{fromJson(steps.set_var.outputs.imageJson).name}}:${{fromJson(steps.set_var.outputs.imageJson).version}} docker://ihubpub/${{ matrix.image_name }}:${{fromJson(steps.set_var.outputs.imageJson).version}} |
+         skopeo copy docker://${{fromJson(steps.set_var.outputs.imageJson).registry}}/${{fromJson(steps.set_var.outputs.imageJson).namespace}}/${{fromJson(steps.set_var.outputs.imageJson).name}}:${{fromJson(steps.set_var.outputs.imageJson).version}} docker://ihubpub/${{ matrix.image_name }}:latest
