@@ -42,7 +42,10 @@ jobs:
         password: ${{ secrets.ACR_PASSWORD }}
         logout: false
 
-    - name: Use Skopeo Tools Sync Image to Docker Hub
+    - name: Use Skopeo Tools Sync Image to ACR
       run: |
-         skopeo copy docker://${{fromJson(steps.set_var.outputs.imageJson).registry}}${{fromJson(steps.set_var.outputs.imageJson).namespace}}/${{fromJson(steps.set_var.outputs.imageJson).name}}:${{fromJson(steps.set_var.outputs.imageJson).version}} docker://registry.cn-beijing.aliyuncs.com/ihub-pub/${{ matrix.image_name }}:${{fromJson(steps.set_var.outputs.imageJson).version}}"
-         skopeo copy docker://${{fromJson(steps.set_var.outputs.imageJson).registry}}${{fromJson(steps.set_var.outputs.imageJson).namespace}}/${{fromJson(steps.set_var.outputs.imageJson).name}}:${{fromJson(steps.set_var.outputs.imageJson).version}} docker://registry.cn-beijing.aliyuncs.com/ihub-pub/${{ matrix.image_name }}:latest
+         skopeo copy docker://${{fromJson(steps.set_var.outputs.imageJson).registry}}/${{fromJson(steps.set_var.outputs.imageJson).namespace}}/${{fromJson(steps.set_var.outputs.imageJson).name}}:${{fromJson(steps.set_var.outputs.imageJson).version}} docker://registry.cn-beijing.aliyuncs.com/ihub-pub/${{ matrix.image_name }}:${{fromJson(steps.set_var.outputs.imageJson).version}}"
+
+    - name: Use Skopeo Tools Sync Latest Image to ACR
+      run: |
+         skopeo copy docker://${{fromJson(steps.set_var.outputs.imageJson).registry}}/${{fromJson(steps.set_var.outputs.imageJson).namespace}}/${{fromJson(steps.set_var.outputs.imageJson).name}}:${{fromJson(steps.set_var.outputs.imageJson).version}} docker://registry.cn-beijing.aliyuncs.com/ihub-pub/${{ matrix.image_name }}:latest
