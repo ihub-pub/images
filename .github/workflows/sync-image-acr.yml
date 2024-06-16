@@ -2,16 +2,34 @@ name: Sync Image to ACR
 
 on:
   push:
-    branches: [ "main" ]
+    paths: ".github/images/**"
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image_name: [sentinel]
 
     steps:
     - name: Git pull
       uses: actions/checkout@v4
+
+    - id: set_var
+      run: |
+        content=`cat .github/images/${{ matrix.image_name }}.json`
+        # the following lines are only required for multi line json
+        content="${content//'%'/'%25'}"
+        content="${content//$'\n'/'%0A'}"
+        content="${content//$'\r'/'%0D'}"
+        # end of optional handling for multi line json
+        echo "::set-output name=imageJson::$content"
+    - run: |
+        echo "::set-output name=registry::${{fromJson(steps.set_var.outputs.imageJson).registry}}"
+        echo "::set-output name=namespace::${{fromJson(steps.set_var.outputs.imageJson).namespace}}"
+        echo "::set-output name=name::${{fromJson(steps.set_var.outputs.imageJson).name}}"
+        echo "::set-output name=version::${{fromJson(steps.set_var.outputs.imageJson).version}}"
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -26,4 +44,5 @@ jobs:
 
     - name: Use Skopeo Tools Sync Image to Docker Hub
       run: |
-         skopeo copy docker://ghcr.io/songquanpeng/one-api:latest docker://registry.cn-beijing.aliyuncs.com/ihub-pub/one-api:latest
+         skopeo copy docker://${{fromJson(steps.set_var.outputs.imageJson).registry}}/${{fromJson(steps.set_var.outputs.imageJson).namespace}}/${{fromJson(steps.set_var.outputs.imageJson).name}}:${{fromJson(steps.set_var.outputs.imageJson).version}} docker://registry.cn-beijing.aliyuncs.com/ihub-pub/${{ matrix.image_name }}:${{steps.set_var.outputs.version}}
+         skopeo copy docker://${{fromJson(steps.set_var.outputs.imageJson).registry}}/${{fromJson(steps.set_var.outputs.imageJson).namespace}}/${{fromJson(steps.set_var.outputs.imageJson).name}}:${{fromJson(steps.set_var.outputs.imageJson).version}} docker://registry.cn-beijing.aliyuncs.com/ihub-pub/${{ matrix.image_name }}:latest
