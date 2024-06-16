@@ -1,5 +1,4 @@
 {
-  "registry":"docker.io",
   "namespace":"herodotus",
   "name":"sentinel-dashboard",
   "version":"v1.8.8"
