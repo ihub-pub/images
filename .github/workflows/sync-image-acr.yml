@@ -20,11 +20,11 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v2.2.0
       with:
-        registry: ${{ variables.ACR_REGISTRY }}
+        registry: ${{ env.ACR_REGISTRY }}
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
         logout: false
 
     - name: Use Skopeo Tools Sync Image to Docker Hub
       run: |
-         skopeo copy docker://ghcr.io/songquanpeng/one-api:latest docker://${{ variables.ACR_REGISTRY }}/ihub-pub/one-api:latest
+         skopeo copy docker://ghcr.io/songquanpeng/one-api:latest docker://${{ env.ACR_REGISTRY }}/ihub-pub/one-api:latest
