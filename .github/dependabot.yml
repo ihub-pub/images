@@ -13,3 +13,18 @@ updates:
       - "henry-hub"
     allow:
       - dependency-type: "production"
+
+  - package-ecosystem: docker
+    directory: /nacos
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /one-api
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /sentinel
+    schedule:
+      interval: daily

@@ -1,4 +1,4 @@
-FROM openjdk:8u201-jdk-alpine3.9
+FROM openjdk:8u201-jdk-alpine3.9@sha256:2a52fedf1d4ab53323e16a032cadca89aac47024a8228dea7f862dbccf169e1e
 
 # set environment
 ENV BASE_DIR="/home/sentinel" \
