@@ -1,4 +1,4 @@
-FROM amd64/buildpack-deps:buster-curl as installer
+FROM amd64/buildpack-deps:buster-curl@sha256:c8aa318418d49b4d9865955785ed695ac8713243513a61590382ecb24536dbfa as installer
 
 ARG VERSION=0.0.0
 
@@ -7,7 +7,7 @@ RUN set -x \
     && tar -xzvf /var/tmp/nacos-server.tar.gz -C /home \
     && rm -rf /var/tmp/nacos-server.tar.gz /home/nacos/bin/* /home/nacos/conf/*.properties /home/nacos/conf/*.example /home/nacos/conf/nacos-mysql.sql
 
-FROM openjdk:8-jre-slim
+FROM openjdk:8-jre-slim@sha256:53186129237fbb8bc0a12dd36da6761f4c7a2a20233c20d4eb0d497e4045a4f5
 
 # set environment
 ENV MODE="cluster" \
