@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image_name: [nacos,sentinel]
+        image_name: [nacos,sentinel,shields]
 
     steps:
     - name: Harden Runner
