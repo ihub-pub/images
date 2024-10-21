@@ -2,5 +2,5 @@
   "registry":"docker.io",
   "namespace":"herodotus",
   "name":"nacos-server",
-  "version":"v2.4.0-slim"
+  "version":"v2.4.3"
 }
