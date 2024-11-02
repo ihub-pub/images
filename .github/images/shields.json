@@ -2,5 +2,5 @@
   "registry":"docker.io",
   "namespace":"shieldsio",
   "name":"shields",
-  "version":"server-2024-09-25"
+  "version":"next"
 }
