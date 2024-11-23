@@ -13,6 +13,8 @@ updates:
       - "ihub-bot"
     allow:
       - dependency-type: "production"
+    commit-message:
+      prefix: "build(deps)"
 
   - package-ecosystem: docker
     directory: /nacos
